@@ -1,0 +1,29 @@
+{
+  "name": "openapi-leatherface",
+  "version": "1.0.0",
+  "description": "A tool to split and merge OpenAPI files.",
+  "main": "index.js",
+  "directories": {
+    "test": "test",
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "mocha",
+    "coverage": "istanbul cover --print both _mocha -- -R spec",
+    "start": "node index.js"
+  },
+  "author": {
+    "name": "Arnaud Lauret",
+    "url": "http://apihandyman.io"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/arno-di-loreto/openapi-leatherface.git"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.0.2"
+  }
+}
