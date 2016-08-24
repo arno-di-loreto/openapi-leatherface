@@ -1,3 +1,5 @@
-'use strict';
+#!/usr/bin/env node
 
-console.log('OpenAPI Leatherface. Coming soon to a terminal near you.');
+const leatherface = require('./lib/cli');
+
+leatherface.cli(process.argv, process.exit);

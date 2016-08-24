@@ -32,7 +32,7 @@ describe('leatherface', function() {
     describe('Cutting operation limb', function() {
       let childOpenapi;
       let parseError;
-      const parentOpenapi = require('./chain/leatherface/parent.json');
+      const parentOpenapi = require('./leatherface/parent.json');
       before(function(done) {
         leatherface.chainsaw(parentOpenapi, ['get /path'])
         .then(function(result) {
