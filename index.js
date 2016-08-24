@@ -1,3 +1,3 @@
 'use strict';
 
-console.log('OpenAPI Leatherface. Coming soon in a terminal near you.');
+console.log('OpenAPI Leatherface. Coming soon to a terminal near you.');

@@ -24,6 +24,12 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "istanbul": "^0.4.5",
-    "mocha": "^3.0.2"
+    "mocha": "^3.0.2",
+    "mock-fs": "^3.11.0"
+  },
+  "dependencies": {
+    "mkdirp": "^0.5.1",
+    "mock-fs": "^3.11.0",
+    "swagger-parser": "^4.0.0-beta.2"
   }
 }
