@@ -42,6 +42,7 @@ openapi-leatherface chainsaw "https://api.apis.guru/v2/specs/clarify.io/1.1.0/sw
   -f yaml "delete /v1/bundles/{bundle_id}/tracks/{track_id}"
 ```
 
+### Path /v1/bundles
 ```shell
 openapi-leatherface chainsaw "https://api.apis.guru/v2/specs/clarify.io/1.1.0/swagger.yaml" \
   -o clarify-path-bundle.yaml \
