@@ -32,26 +32,30 @@ Limbs are elements to cut out from the OpenAPI specification:
 ```shell
 openapi-leatherface chainsaw "https://api.apis.guru/v2/specs/clarify.io/1.1.0/swagger.yaml" \
   -o clarify-tag-search.yaml \
-  -f yaml search
+  -f yaml \
+  search
 ```
 
 ### Operation delete /v1/bundles/{bundle_id}/tracks/{track_id}
 ```shell
 openapi-leatherface chainsaw "https://api.apis.guru/v2/specs/clarify.io/1.1.0/swagger.yaml" \
   -o clarify-operation-delete-track.yaml \
-  -f yaml "delete /v1/bundles/{bundle_id}/tracks/{track_id}"
+  -f yaml \
+  "delete /v1/bundles/{bundle_id}/tracks/{track_id}"
 ```
 
 ### Path /v1/bundles
 ```shell
 openapi-leatherface chainsaw "https://api.apis.guru/v2/specs/clarify.io/1.1.0/swagger.yaml" \
   -o clarify-path-bundle.yaml \
-  -f yaml "/v1/bundles"
+  -f yaml \
+  "/v1/bundles"
 ```
 
 ### The three limbs together 
 ```shell
 openapi-leatherface chainsaw "https://api.apis.guru/v2/specs/clarify.io/1.1.0/swagger.yaml" \
   -o clarify-multi.yaml \
-  -f yaml "/v1/bundles" search "delete /v1/bundles/{bundle_id}/tracks/{track_id}"
+  -f yaml \
+  "/v1/bundles" search "delete /v1/bundles/{bundle_id}/tracks/{track_id}"
 ```
