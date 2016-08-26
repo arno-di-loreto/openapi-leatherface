@@ -126,9 +126,10 @@ describe('chainsaw', function() {
       });
     });
 
-    describe('KO', function() {
+    describe('KO on getOpenApi', function() {
+      const parentOpenapi = require('./chainsaw/parent.json');
       before(function(done) {
-        chainsaw._chainsawSingle({}, ['get /path'])
+        chainsaw._chainsawSingle(parentOpenapi, ['get /nopath'])
         .then(function(result) {
           childOpenapi = result;
           done();
@@ -141,6 +142,34 @@ describe('chainsaw', function() {
 
       it('should return an error', function() {
         expect(chainsawErr).to.be.not.equal(undefined);
+      });
+    });
+
+    describe('KO on includeDependencies', function() {
+      const parentOpenapi =
+        require('./chainsaw/parent-unknown-dependencies.json');
+      let chainsawSingleResult;
+      let chainsawErr;
+
+      before(function(done) {
+        chainsaw._chainsawSingle(parentOpenapi, ['get /path'])
+        .then(function(result) {
+          chainsawSingleResult = result;
+          done();
+        })
+        .catch(function(error) {
+          chainsawErr = error;
+          done();
+        });
+      });
+
+      it('should return an error', function() {
+        expect(chainsawErr, 'error should not be null').to.be.not.equal(undefined);
+      });
+
+      it('should not return a child OpenApi', function() {
+        expect(chainsawSingleResult, 'unexpected child OpenAPI')
+          .to.be.equal(undefined);
       });
     });
   });
@@ -184,37 +213,13 @@ describe('chainsaw', function() {
       });
     });
 
-    describe('KO on getOpenApi', function() {
+    describe('KO', function() {
+      const parentOpenapi = require('./chainsaw/parent.json');
       let chainsawMultipleItemResult;
       let chainsawErr;
       before(function(done) {
         chainsaw._chainsawMultipleItem(
-          {name: 'aname.json', openapi: {}, limbs: ['get /path']},
-          function(error, result) {
-            chainsawMultipleItemResult = result;
-            chainsawErr = error;
-            done();
-          });
-      });
-
-      it('should return an error', function() {
-        expect(chainsawErr, 'error should not be null').to.be.not.equal(null);
-      });
-
-      it('should not return a child OpenApi', function() {
-        expect(chainsawMultipleItemResult, 'unexpected child OpenAPI')
-          .to.be.equal(undefined);
-      });
-    });
-
-    describe('KO on includeDependencies', function() {
-      const parentOpenapi =
-        require('./chainsaw/parent-unknown-dependencies.json');
-      let chainsawMultipleItemResult;
-      let chainsawErr;
-      before(function(done) {
-        chainsaw._chainsawMultipleItem(
-          {name: 'aname.json', openapi: parentOpenapi, limbs: ['get /path']},
+          {name: 'aname.json', openapi: parentOpenapi, limbs: ['get /nopath']},
           function(error, result) {
             chainsawMultipleItemResult = result;
             chainsawErr = error;
@@ -273,11 +278,11 @@ describe('chainsaw', function() {
     });
 
     describe('KO', function() {
-      const parentOpenapi = {};
+      const parentOpenapi = require('./chainsaw/parent.json');
       let chainsawErr;
       before(function(done) {
         chainsaw._chainsawMultiple(
-          [{name: 'aname.json', openapi: parentOpenapi, limbs: ['get /path']}])
+          [{name: 'aname.json', openapi: parentOpenapi, limbs: ['get /nopath']}])
         .then(function() {
           done();
         })
@@ -299,6 +304,30 @@ describe('chainsaw', function() {
       let parseError;
       before(function(done) {
         chainsaw.chainsaw('nofile.yaml', [])
+        .then(function(result) {
+          childOpenapi = result;
+          done();
+        })
+        .catch(function(error) {
+          parseError = error;
+          done();
+        });
+      });
+
+      it('should have return parsing error', function() {
+        expect(parseError, 'parseError should not be undefined')
+          .to.be.not.equal(undefined);
+        expect(childOpenapi, 'childOpenapi should be undefined')
+          .to.be.equal(undefined);
+      });
+    });
+
+    describe('KO on sawing', function() {
+      let childOpenapi;
+      let parseError;
+      const parentOpenapi = require('./chainsaw/parent.json');
+      before(function(done) {
+        chainsaw.chainsaw(parentOpenapi, ['get /nopath'])
         .then(function(result) {
           childOpenapi = result;
           done();

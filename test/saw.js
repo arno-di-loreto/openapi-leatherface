@@ -346,6 +346,24 @@ describe('saw', function() {
       expect(operations.length,
         'should not return parameters or x-custom').to.be.equal(0);
     });
+
+    it('should throw an error if path do not exists', function() {
+      const openapi = {
+        paths: {
+          '/path': {
+            get: 'value',
+            delete: 'value'
+          }
+        }
+      };
+      try {
+        saw.getOperationsForPath('/nopath', openapi);
+      }
+      catch (error) {
+        expect(error).to.be.not.equal(null);
+        expect(error.message).to.be.equal('Unknown path /nopath');
+      }
+    });
   });
 
   describe('getOperationsForTag', function() {
@@ -396,6 +414,19 @@ describe('saw', function() {
       expect(operations.indexOf('head /other-path',
         'missing head /other-path') > -1).to.be.equal(true);
     });
+
+    it('should return an error if no operation for tag', function() {
+      let err;
+      try {
+        saw.getOperationsForTag('invisibletag', openapi);
+      }
+      catch (error) {
+        err = error;
+      }
+      expect(err, 'error be must be thrown').to.be.not.equal(undefined);
+      expect(err.message, 'invalid error message')
+        .to.be.equal('No operation for tag invisibletag');
+    });
   });
 
   describe('getOperations', function() {
@@ -427,10 +458,46 @@ describe('saw', function() {
         saw.getOperationsForPath('/path', openapi));
     });
 
-    it('should return nothing if not a tag, path or operation', function() {
-      const operations = saw.getOperations(['parameters'], openapi);
-      expect(operations).to.be.eql(
-        saw.getOperationsForPath('parameters', openapi));
+    it('should return an error if a limb do not match a tag, path or operation',
+    function() {
+      let err;
+      try {
+        saw.getOperations(['parameters'], openapi);
+      }
+      catch (error) {
+        err = error;
+      }
+      expect(err).to.be.not.equal(undefined);
+      expect(err.message)
+        .to.be.equal('No tag, operation or tag matches limb parameters');
+    });
+
+    it('should return an error if a operation limb correspond to no operation',
+    function() {
+      let err;
+      try {
+        saw.getOperations(['get /parameters'], openapi);
+      }
+      catch (error) {
+        err = error;
+      }
+      expect(err).to.be.not.equal(undefined);
+      expect(err.message)
+        .to.be.equal('No tag, operation or tag matches limb get /parameters');
+    });
+
+    it('should return an error if a path limb correspond to no path',
+    function() {
+      let err;
+      try {
+        saw.getOperations(['/parameters'], openapi);
+      }
+      catch (error) {
+        err = error;
+      }
+      expect(err).to.be.not.equal(undefined);
+      expect(err.message)
+        .to.be.equal('No tag, operation or tag matches limb /parameters');
     });
   });
 
