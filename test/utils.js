@@ -110,4 +110,19 @@ describe('utils', function() {
       }
     });
   });
+
+  describe('isHttpMethod', function() {
+    it('should return true id value is a HTTP methode', function() {
+      const methods =
+        ['get', 'put', 'post', 'delete', 'patch', 'put', 'head', 'options'];
+      for (let i = 0; i < methods.length; i++) {
+        expect(utils.isHttpMethod(methods[i]), methods[i]).to.be.equal(true);
+      }
+    });
+
+    it('should return false if value is not a HTTP methode', function() {
+      expect(utils.isHttpMethod('nothttpmethod'), 'not a http method')
+        .to.be.equal(false);
+    });
+  });
 });
