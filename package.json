@@ -32,7 +32,8 @@
     "js-yaml": "^3.6.1",
     "mkdirp": "^0.5.1",
     "mock-fs": "^3.11.0",
-    "swagger-parser": "^4.0.0-beta.2"
+    "swagger-parser": "^4.0.0-beta.2",
+    "urlify": "^0.3.6"
   },
   "bin": {
     "openapi-leatherface": "./index.js"
