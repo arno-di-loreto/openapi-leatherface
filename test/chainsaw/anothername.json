@@ -1,0 +1,35 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "OpenAPI Leatherface Test",
+        "description": "A dummy API to test OpenAPI Leatherface",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/another-path": {
+            "get": {
+                "summary": "Gets another thing",
+                "tags": [
+                    "sometag"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Another thing",
+                        "schema": {
+                            "$ref": "#/definitions/AnotherThing"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "AnotherThing": {
+            "properties": {
+                "another": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

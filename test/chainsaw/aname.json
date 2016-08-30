@@ -1,0 +1,75 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "OpenAPI Leatherface Test",
+        "description": "A dummy API to test OpenAPI Leatherface",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/path": {
+            "get": {
+                "summary": "Gets something",
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/filter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Something",
+                        "schema": {
+                            "$ref": "#/definitions/Something"
+                        }
+                    },
+                    "500": {
+                        "$ref": "#/responses/ServerError"
+                    }
+                }
+            }
+        }
+    },
+    "parameters": {
+        "filter": {
+            "name": "q",
+            "type": "string",
+            "in": "query"
+        }
+    },
+    "responses": {
+        "ServerError": {
+            "description": "An unexpected error occured",
+            "schema": {
+                "$ref": "#/definitions/Error"
+            }
+        }
+    },
+    "definitions": {
+        "Something": {
+            "properties": {
+                "some": {
+                    "type": "string"
+                },
+                "thing": {
+                    "type": "string"
+                },
+                "else": {
+                    "$ref": "#/definitions/SomethingElse"
+                }
+            }
+        },
+        "SomethingElse": {
+            "properties": {
+                "value": {
+                    "type": "string"
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
