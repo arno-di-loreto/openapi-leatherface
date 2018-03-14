@@ -315,8 +315,8 @@ describe('chainsaw', function() {
       });
 
       it('should have return parsing error', function() {
-        expect(parseError, 'parseError should not be undefined')
-          .to.be.not.equal(undefined);
+        expect(parseError===undefined, 'parseError should not be undefined')
+          .to.be.false;
         expect(childOpenapi, 'childOpenapi should be undefined')
           .to.be.equal(undefined);
       });
